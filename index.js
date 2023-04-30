@@ -2,16 +2,7 @@ const inquirer = require("inquirer");
 const Employee = require("./lib/employee");
 const Role = require("./lib/role");
 const Department = require("./lib/department");
-const { connection } = require("./config/db");
-require("console.table");
-// const express = require("express");
-
-// const PORT = process.env.PORT || 3001;
-// const app = express();
-
-// // Express middleware
-// app.use(express.urlencoded({ extended: false }));
-// app.use(express.json());
+const { connection } = require("./config/connection");
 
 const roleObj = new Role();
 const departmentObj = new Department();
