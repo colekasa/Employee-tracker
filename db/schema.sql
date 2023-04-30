@@ -1,32 +1,38 @@
-DROP DATABASE IF EXISTS main_db;
-CREATE DATABASE main_db;
+DROP DATABASE IF EXISTS SQL_STORE ;
+CREATE DATABASE IF NOT EXISTS SQL_STORE;
+USE SQL_STORE;
+DROP TABLE IF EXISTS department ;
+DROP TABLE IF EXISTS role ;
+DROP TABLE IF EXISTS employee ;
 
-USE main_db;
--- Department Table
-CREATE TABLE department (
-    id INT NOT NULL AUTO_INCREMENT,
-    department_name VARCHAR(30) NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE KEY (department_name)
+
+CREATE TABLE IF NOT EXISTS department 
+(
+id INT PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(30)
 );
--- Role Table
-CREATE TABLE role (
-    id INT NOT NULL AUTO_INCREMENT,
-    title VARCHAR(30) NOT NULL,
-    salary DECIMAL NOT NULL,
-    department_id INT NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (department_id)
-    REFERENCES department(id)
+
+
+CREATE TABLE IF NOT EXISTS role (
+id INT PRIMARY KEY AUTO_INCREMENT,
+title VARCHAR(30),
+salary DECIMAL,
+department_id INT,
+FOREIGN KEY (department_id)
+REFERENCES department (id)
+ON DELETE SET NULL
 );
--- Employee Table
-CREATE TABLE employee (
-    id INT NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(30) NOT NULL,
-    last_name VARCHAR(30) NOT NULL,
-    role_id INT NOT NULL,
-    manager_id INT REFERENCES employee(id),
-    PRIMARY KEY (id),
-    FOREIGN KEY (role_id)
-    REFERENCES role(id)
-); 
+
+CREATE TABLE IF NOT EXISTS employee (
+id INT PRIMARY KEY AUTO_INCREMENT,
+first_name VARCHAR(30),
+last_name VARCHAR(30),
+role_id INT,
+manager_id INT,
+FOREIGN KEY (manager_id)
+REFERENCES employee(id)
+ON DELETE SET NULL,
+FOREIGN KEY (role_id)
+REFERENCES role(id)
+ON DELETE SET NULL
+);
